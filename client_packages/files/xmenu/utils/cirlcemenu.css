@@ -1,0 +1,44 @@
+.interaktionmenu {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+.interaktionmenu .circle {
+    width: 800px;
+    height: 800px;
+}
+
+.interaktionmenu .circle div {
+    width: 115px;
+    height: 115px;
+    border-radius: 65px;
+    line-height: 115px;
+    margin-left: -65px;
+    text-align: center;
+    margin-top: -65px;
+    position: absolute;
+    background: #141414;
+    opacity: 0.65;
+}
+
+.interaktionmenu .circle img {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.interaktionmenu .infos {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transforM: translate(-50%, -50%);
+    text-align: center;
+}
+
+.interaktionmenu .infos #infosTitle {
+    font-size: 45px;
+}

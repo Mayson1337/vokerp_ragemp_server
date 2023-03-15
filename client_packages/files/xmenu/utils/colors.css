@@ -1,0 +1,83 @@
+:root {
+    /* Alpha Werte */
+    --alpha010: 0.10;
+    --alpha015: 0.15;
+    --alpha020: 0.20;
+    --alpha025: 0.25;
+    --alpha030: 0.30;
+    --alpha035: 0.35;
+    --alpha040: 0.40;
+    --alpha045: 0.45;
+    --alpha050: 0.50;
+    --alpha055: 0.55;
+    --alpha060: 0.60;
+    --alpha065: 0.65;
+    --alpha070: 0.70;
+    --alpha075: 0.75;
+    --alpha080: 0.80;
+    --alpha085: 0.85;
+    --alpha090: 0.90;
+    --alpha095: 0.95;
+    --alpha100: 1.00;
+    /* background colors */
+    --color-primary-bg-dark: rgba(1, 1, 1, var(--alpha065));
+    --color-primary-bg-darker: rgba(1, 1, 1, var(--alpha090));
+    --color-primary-bg-darkest: rgba(1, 1, 1, var(--alpha100));
+    --color-primary-bg-light: rgba(255, 255, 255, var(--alpha050));
+    --color-primary-bg-lighter: rgba(255, 255, 255, var(--alpha015));
+    --color-active-bg-green: rgba(77, 184, 44, var(--alpha030));
+    --color-load-bg-dark: rgba(1, 1, 1, var(--alpha065));
+    --color-full-bg-green: rgba(77, 184, 44, var(--alpha090));
+    --color-full-bg-orange: rgba(255, 129, 0, var(--alpha090));
+    --color-full-bg-red: rgba(160, 0, 0, var(--alpha050));
+    /* border colors */
+    --color-primary-border-light: rgba(255, 255, 255, var(--alpha040));
+    --color-primary-border-lighter: rgba(255, 255, 255, var(--alpha020));
+    --color-primary-border-green: rgba(77, 184, 44, var(--alpha080));
+    /* animation */
+    --color-animation-primary: rgba(139, 235, 83, var(--alpha100));
+    --color-animation-secondary: rgba(74, 109, 64, var(--alpha100));
+    /* highlighter */
+    --color-highlighter-bg-light: rgba(255, 255, 255, var(--alpha100));
+    /* text & icon colors */
+    --color-primary-txt-light: rgba(255, 255, 255, var(--alpha100));
+    --color-primary-txt-lighter: rgba(255, 255, 255, var(--alpha060));
+    --color-danger-txt-regular: rgba(205, 38, 38, var(--alpha100));
+    --color-info-txt-regular: rgba(48, 93, 140, var(--alpha100));
+    --color-warning-txt-regular: rgba(205, 117, 99, var(--alpha100));
+    /* button colors */
+    --color-btn-bg-dark: rgba(1, 1, 1, var(--alpha080));
+    /* confirm */
+    --color-btn-bg-confirm-hover: rgba(84, 202, 70, var(--alpha010));
+    --color-btn-border-confirm-hover: rgba(84, 202, 70, var(--alpha050));
+    --color-btn-txt-confirm-hover: rgba(84, 202, 70, var(--alpha100));
+    /* cancel */
+    --color-btn-bg-cancel-hover: rgba(160, 0, 0, var(--alpha010));
+    --color-btn-border-cancel-hover: rgba(160, 0, 0, var(--alpha050));
+    --color-btn-txt-cancel-hover: rgba(160, 0, 0, var(--alpha100));
+    /* reset */
+    --color-btn-bg-reset-hover: rgba(240, 167, 15, var(--alpha010));
+    --color-btn-border-reset-hover: rgba(240, 167, 15, var(--alpha050));
+    --color-btn-txt-reset-hover: rgba(240, 167, 15, var(--alpha100));
+    /* add */
+    --color-btn-bg-add-hover: rgba(255, 255, 255, var(--alpha015));
+    --color-btn-border-add-hover: rgba(255, 255, 255, var(--alpha060));
+    /* sub */
+    --color-btn-bg-sub-hover: rgba(255, 255, 255, var(--alpha015));
+    --color-btn-border-sub-hover: rgba(255, 255, 255, var(--alpha060));
+    /* item categorie colors */
+    --cat-food: rgba(64, 144, 71, var(--alpha100));
+    --cat-water: rgba(85, 87, 144, var(--alpha100));
+    --cat-weapons: rgba(129, 66, 111, var(--alpha100));
+    --cat-cloths: rgba(5, 114, 183, var(--alpha100));
+    --cat-keys: rgba(0, 54, 13, var(--alpha100));
+    --cat-rest: rgba(158, 123, 69, var(--alpha100));
+    /* scrollbar color */
+    --color-scrollbar-bg: rgba(196, 196, 196, var(--alpha100));
+    --color-scrollbar: rgba(255, 255, 255, var(--alpha100));
+    --color-scrollbar-hover: rgba(85, 85, 85, var(--alpha100));
+    /* ul/li list colors */
+    --color-li-bg: rgba(1, 1, 1, var(--alpha065));
+    --color-li-bg-hover: rgba(250, 130, 0, var(--alpha040));
+    --color-li-border: rgba(255, 255, 255, var(--alpha020));
+}

@@ -1,0 +1,3 @@
+let openMenu = (name, perms) => {
+  
+}

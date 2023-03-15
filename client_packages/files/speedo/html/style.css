@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.carStats {
+  position: relative;
+  margin: auto;
+  margin-top: 51%;
+  width: 13%;
+  height: 8%;
+  /*text-align: center;*/
+  color: white;
+  background-color: black;
+  border-top: solid 3px rgb(255,128,0);
+  opacity: .9;
+}
+
+#engine {
+  padding-left: 20%;
+}
+
+#lock {
+  padding-left: 5%;
+}
+
+#kmh {
+  padding-right: 20%;
+}
+
+#fueltext {
+  padding-left: 20%;
+}
+
+#kmtext {
+  padding-right: 20%;
+}

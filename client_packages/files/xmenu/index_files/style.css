@@ -1,0 +1,323 @@
+@font-face {
+	font-family: 'Pricedown';
+	src: url('../fonts/pricedown.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Montserrat';
+	src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+}
+
+body {
+	color: #666666;
+    overflow-x: hidden;
+    overflow-y: hidden;
+	font-family: 'RobotoDraft', 'Roboto', sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+	  transition: visibility 0s, opacity 0.5s linear;
+
+}
+
+#chatInput {
+    position: absolute;
+    height: 35px;
+    width: 350px;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: white;
+    background: #141414;
+    border-radius: 5px;
+    outline: 0;
+    border: 1px solid #262626;
+    font-family: 'Montserrat', sans-serif;
+    opacity: 0.8;
+    text-align: left;
+    display: none;
+    padding-left: 10px;
+    font-size: 11.5px;
+}
+
+#crosshair{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: 1.75%;
+    margin-top: auto;
+    margin-bottom: auto;
+    top: 0;
+    bottom: 0;
+    display: none;
+    opacity: 0.7;
+}
+
+.hidebar {
+opacity:0;
+transition: height 0ms 400ms, opacity 400ms 0ms;
+}
+
+.visiblebar {
+	opacity:1;
+    transition: height 0ms 0ms, opacity 600ms 0ms;
+	
+}
+.progress-pie-chart {
+width:200px;
+height: 200px;
+border-radius: 50%;
+background-color: #E5E5E5;
+position: relative;
+}
+.progress-pie-chart.gt-50 {
+background-color: #2587ed;
+}
+
+.ppc-progress {
+content: "";
+position: absolute;
+border-radius: 50%;
+left: calc(50% - 100px);
+top: calc(50% - 100px);
+width: 200px;
+height: 200px;
+clip: rect(0, 200px, 200px, 100px);
+}
+.ppc-progress .ppc-progress-fill {
+content: "";
+position: absolute;
+border-radius: 50%;
+left: calc(50% - 100px);
+top: calc(50% - 100px);
+width: 200px;
+height: 200px;
+clip: rect(0, 100px, 200px, 0);
+background: #2587ed;
+transform: rotate(60deg);
+}
+.gt-50 .ppc-progress {
+clip: rect(0, 100px, 200px, 0);
+}
+.gt-50 .ppc-progress .ppc-progress-fill {
+clip: rect(0, 200px, 200px, 100px);
+background: #E5E5E5;
+}
+
+.ppc-percents {
+content: "";
+position: absolute;
+border-radius: 50%;
+left: calc(50% - 173.91304px/2);
+top: calc(50% - 173.91304px/2);
+width: 173.91304px;
+height: 173.91304px;
+background: #fff;
+text-align: center;
+display: table;
+}
+.ppc-percents span {
+display: block;
+font-size: 2.6em;
+font-weight: bold;
+color: #2587ed;
+}
+
+.pcc-percents-wrapper {
+display: table-cell;
+vertical-align: middle;
+}
+
+.progress-pie-chart {
+right: 1.5vw;
+position: absolute;
+bottom: 1.5vw;
+}
+
+/* .money {
+	font-family: 'Pricedown', sans-serif;
+	color: rgb(106, 195, 24);
+	font-family: Pricedown;
+	font-size: 1.95vw;
+	-webkit-text-stroke: 0.5px black;
+} */
+
+.tacho{
+    position:absolute;
+    font-family: Ubuntu, sans-serif;
+    color:#fff;
+    bottom:4px;
+    width:160px;
+    right:100px;
+}
+
+.tacho .rpm{
+    width:100%;
+    background:#262626a1;
+    height:4px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+.tacho .rpm .rpmactive{
+    background: rgba(37, 89, 180, 0.75);
+    width:50%;
+    position:absolute;
+    height:4px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+.tacho .vehicleInfo{
+    width:100%;
+    background:#14141496;
+    height:35px;
+    line-height:35px;
+    text-align:center;
+    font-size:15px;
+}
+
+.tacho .vehicleInfo div{
+    display:inline-block;
+    margin-left:25px;
+}
+
+.tacho .vehicleInfo i{
+    margin-right:5px;
+}
+
+.tacho .vehicleInfo .img{
+    width: 20px;
+}
+
+#inviteWindow{
+    text-align: center;
+    height: 100px;
+    width: 375px;
+    background:#262626;
+    color: white;
+    border: 2px solid #141414;
+    border-radius: 10px;
+    display: none;
+}
+
+#inviteWindow .button {
+    width: 125px;
+    height: 25px;
+    border: 1px solid #141414;
+    border-radius: 5px;
+    line-height: 25px;
+    margin-top: -7.5px;
+}
+
+#inviteWindow .button:hover{
+    border: 1px dashed #141414;
+    opacity: 0.7;
+}
+
+#geldgebenWindow{
+    text-align: center;
+    height: 105px;
+    width: 275px;
+    background:#262626;
+    color: white;
+    border: 2px solid #141414;
+    border-radius: 10px;
+    display: none;
+}
+
+#geldgebenWindow .button {
+    width: 95px;
+    height: 25px;
+    border: 1px solid #141414;
+    border-radius: 5px;
+    line-height: 25px;
+    margin-top: -7.5px;
+}
+
+#geldgebenWindow .button:hover{
+    border: 1px dashed #141414;
+    opacity: 0.7;
+}
+
+#geldgebenWindow .geldgebenInput{
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background-color: #585858;
+    border-radius: 5px;
+    outline: 0;
+    border: 1px solid #141414;
+    height: 25px;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: -15px;
+}
+
+.money {
+	font-family:Arial, Helvetica, sans-serif;
+	color: rgb(255, 255, 255);
+	font-weight: 0.2;
+	font-size: 18px;
+    position: absolute;
+    text-shadow: 0 0 5px black;
+    }
+     
+
+     .moneyui {
+        position: absolute;
+        left: 93%;
+        top: 14%;
+        transform: translate(-50%, -50%);
+        height: 4vh;
+        width: 11vw;
+        border-bottom-left-radius: 25px;
+        border-top-left-radius: 25px;
+        overflow: hidden;
+        
+    }
+    
+    .moneyicon {
+        background-image: radial-gradient(rgb(32, 32, 32), rgb(34, 34, 34), rgb(43, 43, 43));
+        float: left;
+        position: relative;
+        height: 4vh;
+        width: 3.5vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom-left-radius: 25px;
+        border-top-left-radius: 25px;
+        box-shadow: 0 0 25px 0 black;
+        font-size: 20px;
+        color: #06a82f;
+        
+    }
+
+    .moneyicon i {
+        text-shadow: 0 0 5px black;
+        margin-left: 0.1vw;
+    }
+    
+    /* #moneycount {
+        color: royalblue;
+    }
+     */
+    
+    .moneyamount {
+        height: 4vh;
+        float: right;
+        width: 7.5vw;
+        background-color: rgba(46, 46, 46, 0.5);
+    }
+
+  /* .moneyamount span {
+      color: rgb(184, 34, 34);
+  }     */

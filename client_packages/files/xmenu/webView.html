@@ -1,0 +1,751 @@
+<html>
+
+<head>
+    <script src="./utils/jquery.js"></script>
+    <script src="./utils/jquery-ui.min.js"></script>
+    <script src="./utils/bootstrap.min.js"></script>
+    <script src="./utils/jquery.slide.js"></script>
+    <script src="./utils/spectrum.js"></script>
+    <script src="./utils/raphael.min.js"></script>
+    <script src="./utils/wheelnav.min.js"></script>
+    <script src="./utils/noty.js"></script>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+
+    <link href="./utils/bootstrap.min.css" rel="stylesheet">
+    <link href="./utils/animate.css" rel="stylesheet">
+    <link href="./utils/fontawesome/css/all.css" rel="stylesheet">
+    <link href="./utils/spectrum.css" rel="stylesheet" />
+    <link href="./utils/colors.css" rel="stylesheet" />
+    <link href="./utils/bootstrap.min.css" rel="stylesheet">
+    <link href="./utils/main.css" rel="stylesheet" />
+    <link href="./utils/component-custom-switch.css" rel="stylesheet" />
+    <link hreF="./utils/noty.css" rel="stylesheet" />
+    <link hreF="./utils/themes/sunset.css" rel="stylesheet" />
+    <link href="./utils/cirlcemenu.css" rel="stylesheet" />
+
+    <script>
+        function loadRes() {
+            let zoomLevel = Math.round((screen.width * 100) / 1920);
+
+            document.body.style.zoom = `${zoomLevel}%`
+        }
+
+        $(document).ready(loadRes);
+    </script>
+</head>
+
+<body>
+    <input id="chatInput" placeholder="Befehl eingeben...">
+
+    <div id="hud"
+        style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;display: none; width: 100%; height: 100%; position: absolute;">
+        <!-- <span class="moneyCount"><span id="moneyValue">0</span><span style="margin-left: 10px;">$</span></span> -->
+        <!-- <img id="voiceRangeValue" src="images/voiceRange1.png">
+    <img id="funkValue" src="images/funk2.png"> -->
+        <!-- <span id="adminText"><i class="fas fa-user-crown"></i> Admin-Dienst</span> -->
+        <div id="voiceRangeOutBox" class="outbox">
+            <div class="inoutbox">
+                <div id="voiceRangeBox" class="inbox"><span id="voiceRangeValue" class="icon"><i
+                            class="fas fa-volume-down"></i></span></div>
+            </div>
+        </div>
+        <div id="funkOutBox" class="outbox">
+            <div class="inoutbox">
+                <div class="inbox"><span id="funkValue" class="icon"><i class="fas fa-microphone"></i></span></div>
+            </div>
+        </div>
+        <div id="adminBox" class="outbox">
+            <div class="inoutbox">
+                <div class="inbox"><span style="color: #f03030;" class="icon"><i class="fas fa-user-crown"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="gangwarWindow">
+        <div class="gwMenu">
+            <div class="swords"><i class="fas fa-swords"></i></div>
+            <div class="time"></div>
+            <div class="name1"></div>
+            <div class="name2"></div>
+            <div class="points1"></div>
+            <div class="points2"></div>
+    
+            <span class="text" id="name1">Vagos</span>
+            <span class="text" id="name2">MG13</span>
+            <span class="text" id="points1">100</span>
+            <span class="text" id="points2">100</span>
+    
+            <span class="text" id="time">45:00</span>
+        </div>
+        <script>
+            let startTime = new Date();
+    
+            function openGWMenu(name1, name2, points1, points2, date) {
+                startTime = new Date(date);
+                $("#name1").html(name1);
+                $("#name2").html(name2);
+                $("#points1").html(points1);
+                $("#points2").html(points2);
+    
+                $(".gwMenu").css("visibility", "visible");
+            }
+
+            function closeGWMenu(){
+                $(".gwMenu").css("visibility", "hidden");
+            }
+
+            function updateGWMenu(points1, points2){
+                $("#points1").html(points1);
+                $("#points2").html(points2);
+            }
+    
+            function preloadTime() {
+                let seconds = 2700-diff_seconds(startTime, new Date());
+    
+                let minutes = Math.floor(seconds / 60);
+    
+                seconds -= 60 * minutes;
+    
+                if (minutes.toString().length == 1) minutes = `0${minutes}`;
+                if (seconds.toString().length == 1) seconds = `0${seconds}`;
+    
+                return `${minutes}:${seconds}`
+            }
+    
+            setInterval(() => {
+                if(startTime != null) {
+                    let time = preloadTime();
+    
+                    // if(time[0] == "-") time = "00:00";
+    
+                    $("#time").html(`${time}`);
+                }
+            }, 1000);
+    
+            function diff_seconds(dt2, dt1) {
+    
+                var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+                return Math.abs(Math.round(diff));
+    
+            }
+        </script>
+    </div>
+
+    <div class="window" id="progressBarWindow">
+        <div class="progressbaroutline">
+            <span id="progressbartext">0%</span>
+            <div class="progressbarinoutline">
+                <div id="progressbarinline"></div>
+            </div>
+        </div>
+        <script>
+            let pmaxtime = null;
+            let pto = null;
+
+            function updateProgressbar(time) {
+                if (pmaxtime == null) return;
+                let p = (time / pmaxtime) * 100;
+
+                if (p > 100) p = 100;
+
+                $("#progressbarinline").animate({
+                    width: `${p}%`
+                }, 500);
+
+                $("#progressbartext").html(`${parseInt(p)}%`);
+            }
+
+            function cancelprogessBar() {
+                if (pto != null) {
+                    clearInterval(pto);
+                    $("#progressBarWindow").fadeOut(250);
+                    pto = null;
+                    pmaxtime = null;
+                }
+            }
+
+            function startProgressbar(time, event, type = "timeout") {
+                if (pto != null || pmaxtime != null) return;
+
+                pmaxtime = time;
+
+                $("#progressbarinline").css("width", `0%`);
+                $("#progressbartext").html(`0%`);
+
+                $("#progressBarWindow").fadeIn(250);
+
+                pto = setInterval(() => {
+                    time--;
+                    updateProgressbar(pmaxtime - time);
+
+                    if (type == "interval" && time > 0) {
+                        mp.trigger("serverEvent", event, time);
+                    }
+                    
+                    if (time <= 0) {
+                        clearInterval(pto);
+                        if(event != "false" && type != "notify") mp.trigger("customServerEvent", event, time);
+                        if(event != "false" && type == "notify") mp.trigger("client:notification", null, event);
+                        $("#progressBarWindow").fadeOut(250);
+                        pto = null;
+                        pmaxtime = null;
+                    }
+                }, 1000);
+            }
+        </script>
+    </div>
+
+    <div class="window" id="menuWindow">
+        <div class="menu">
+            <div class="header">
+                <span id="title">MenuTitle</span>
+                <span id="index">0/0</span>
+            </div>
+            <div style="display: none;" id="scrollBar">
+                <div id="inner"></div>
+            </div>
+            <div id="itemList">
+            </div>
+        </div>
+        <script>
+            let menuKeyI = null;
+            let itemList = {}
+            let index = 0;
+            let itemAmount = -1;
+            let maxVisible = 12;
+            let lastScroll = null;
+            let itemTemplate =
+                `<div data-id="$ItemId$" id="item-$ItemId$" class="item"><span class="itemTitle">$ItemTitle$</span><span class="itemRightLabel">$RightLabel$</span></div><br>`;
+
+            $(document).on("keydown", (e) => {
+                let key = e.originalEvent.key;
+
+                if (key == "ArrowUp") {
+                    setActive(index - 1);
+                } else if (key == "ArrowDown") {
+                    setActive(index + 1);
+                } else if (key == "Enter") {
+                    getEnteredElement();
+                }
+            })
+
+            $(document).on("wheel", (e) => {
+                if (lastScroll == null) lastScroll = e.originalEvent.deltaY;
+
+                if (lastScroll == e.originalEvent.deltaY) {
+                    if (e.originalEvent.deltaY < 0) {
+                        setActive(index - 1)
+                    } else if (e.originalEvent.deltaY > 0) {
+                        setActive(index + 1)
+                    }
+                }
+
+                lastScroll = e.originalEvent.deltaY;
+            })
+
+            preloadTemplate = (id, displayname, rightlabel) => {
+                return itemTemplate.replace("$ItemId$", id).replace("$ItemId$", id).replace("$ItemTitle$",
+                    displayname).replace(
+                    "$RightLabel$", rightlabel);
+            }
+
+            addMenuItem = (key, displayname, rightlabel) => {
+                itemAmount++;
+
+                let template = preloadTemplate(itemAmount, displayname, rightlabel);
+
+                let visible = true;
+
+                if (itemAmount >= maxVisible) visible = false;
+
+                itemList[itemAmount] = {
+                    html: template,
+                    visible: visible,
+                    key: key
+                };
+            }
+
+            setMenu = (key, title) => {
+                menuKeyI = key;
+                $("#title").html(title);
+
+                $("#itemList").empty();
+
+                for (let id in itemList) {
+                    $("#itemList").append(itemList[id].html);
+
+                    if (!itemList[id].visible) $(`#item-${id}`).hide();
+                }
+
+                $(".item").click((e) => {
+                    if ($(e.target).data("id") != undefined) setActive(parseInt($(e.target).data(
+                        "id")))
+                });
+
+                $("#inner").css("height", `${65/itemAmount}vh`);
+
+                $("#menuWindow").show();
+
+                setActive(0);
+            }
+
+            hideAll = () => {
+                for (let i in itemList) {
+                    $(`#item-${i}`).hide();
+                    itemList[i].visible = false;
+                }
+            }
+
+            getEnteredElement = () => {
+                let activeElement = $("#itemList").find('.active');
+                mp.trigger(`selectMenuItem_${menuKeyI}`, itemList[parseInt(activeElement.data("id"))].key);
+            }
+
+            setActive = (id) => {
+                if (id < 0) {
+                    if (itemAmount > maxVisible) {
+                        hideAll();
+
+                        for (let i = itemAmount - maxVisible; i < itemAmount; i++) {
+                            $(`#item-${i}`).show();
+                            itemList[i].visible = true;
+                        }
+
+                        id = itemAmount;
+                    } else {
+                        return setActive(itemAmount);
+                    }
+                } else if (id > itemAmount) {
+                    if (itemAmount > maxVisible) {
+                        hideAll();
+
+                        for (let i2 = 1; i2 < maxVisible + 1; i2++) {
+                            $(`#item-${i2}`).show();
+                            itemList[i2].visible = true;
+                        }
+
+                        id = 0;
+                    } else {
+                        return setActive(0);
+                    }
+                }
+
+                let item = itemList[id];
+
+                if (item == undefined) return;
+
+                let targetId = null;
+
+                if (!item.visible) {
+                    if (id > index) {
+                        targetId = id - maxVisible;
+                    } else if (id < index) {
+                        targetId = id + maxVisible;
+                    }
+                }
+
+                if (targetId != null) {
+                    $(`#item-${targetId}`).hide();
+                    itemList[targetId].visible = false;
+                    $(`#item-${id}`).show();
+                    itemList[id].visible = true;
+                }
+
+                $(`.item`).animate({
+                    "margin-right": "1vw"
+                }, 0)
+
+                $(`.item`).css({
+                    "background-color": "rgba(66, 66, 66, 0.85)"
+                });
+
+                $(".active").removeClass("active");
+
+                index = id;
+
+                $("#index").html(`${index+1}/${itemAmount+1}`)
+
+                $(`#item-${id}`).css({
+                    "background-color": "rgba(46, 46, 46, 0.85)"
+                });
+
+                $(`#item-${id}`).animate({
+                    "margin-right": "1.5vw"
+                }, 150)
+
+                $(`#item-${id}`).addClass("active");
+
+                $("#inner").css("margin-top", `${((62.7/itemAmount)*id)}vh`)
+            }
+
+            function showMenu(key, title, items) {
+                $("#itemList").empty();
+                menuKeyI = null;
+                itemList = {}
+                index = 0;
+                itemAmount = -1;
+                maxVisible = 12;
+                lastScroll = null;
+                
+                mp.trigger("client:toggleHud", false);
+                items = JSON.parse(items);
+
+                for (let key in items) {
+                    addMenuItem(key, items[key].label, items[key].rightlabel);
+                }
+
+                setMenu(key, title);
+            }
+
+            function closeMenu() {
+                mp.trigger("client:toggleHud", true);
+                $("#itemList").empty();
+                menuKeyI = null;
+                itemList = {}
+                index = 0;
+                itemAmount = -1;
+                maxVisible = 12;
+                lastScroll = null;
+
+                $("#menuWindow").hide();
+            }
+        </script>
+    </div>
+
+    <div class="window" id="vehicleWindow">
+        <div id="bodyVH" class="body">
+            <div id="rpmVH" class="topBar"></div>
+            <i id="engineVH" style="color: #f03030;" class="fas fa-engine-warning txt"></i>
+            <i id="lockVH" style="color: #f03030;" class="fas fa-lock-alt txt"></i>
+            <span style="margin-right: 15px;" id="kmhVH" class="txt">132 km/h</span>
+        </div>
+        <script>
+            let HudComponets = {};
+
+            function updateHud(id, value) {
+                switch (id) {
+                    case 'money':
+                        $("#moneyValue").html(formatMoney(value));
+                        break;
+                    case 'voice':
+                        // $("#voiceRangeValue").attr("src", `images/${value}.png`);
+                        switch (value) {
+                            case 'voiceRange1':
+                                $("#voiceRangeValue").html(`<i class="fas fa-volume-down"></i>`);
+                                $("#voiceRangeBox").animate({
+                                    "height": `33.3%`,
+                                    "margin-top": `71.7%`,
+                                    "background-color": `#6eac64`
+                                }, 150);
+                                break;
+                            case 'voiceRange2':
+                                $("#voiceRangeValue").html(`<i class="fas fa-volume"></i>`);
+                                $("#voiceRangeBox").animate({
+                                    "height": `66.6%`,
+                                    "margin-top": `38.4%`,
+                                    "background-color": `#6eac64`
+                                }, 150);
+                                break;
+                            case 'voiceRange3':
+                                $("#voiceRangeValue").html(`<i class="fas fa-volume-up"></i>`);
+                                $("#voiceRangeBox").animate({
+                                    "height": `100%`,
+                                    "margin-top": `0%`,
+                                    "background-color": `#6eac64`
+                                }, 150);
+                                break;
+                            case 'voiceRange4':
+                                $("#voiceRangeValue").html(`<i class="fas fa-megaphone"></i>`);
+                                $("#voiceRangeBox").animate({
+                                    "height": `100%`,
+                                    "margin-top": `0%`,
+                                    "background-color": `#f03030`
+                                }, 150);
+                                break;
+                        }
+                        break;
+                    case 'display':
+                        $("#hud").css(id, value);
+                        break;
+                    case 'funk':
+                        // $("#funkValue").attr("src", `images/${value}.png`);
+                        if (value == "funk1" || value == "funk2") HudComponets["funk"] = true;
+                        else HudComponets["funk"] = false;
+
+                        if (HudComponets["adminText"] == "block") {
+                            $("#voiceRangeOutBox").css("top", "45%");
+                            $("#funkOutBox").css("top", "50%");
+                            $("#adminBox").css("top", "55%");
+                        } else {
+                            $("#voiceRangeOutBox").css("top", "47.5%");
+                            $("#funkOutBox").css("top", "52.5%");
+                        }
+
+                        switch (value) {
+                            case 'funk1':
+                                $("#funkValue").css("color", "rgb(53, 177, 37)");
+                                $("#funkOutBox").show();
+                                break;
+                            case 'funk2':
+                                $("#funkValue").css("color", "#f5901d");
+                                $("#funkOutBox").show();
+                                break;
+                            case 'funk3':
+                                $("#funkOutBox").hide();
+                                if (HudComponets["adminText"] == "block") {
+                                    $("#voiceRangeOutBox").css("top", "47.5%");
+                                    $("#adminBox").css("top", "52.5%");
+                                } else {
+                                    $("#voiceRangeOutBox").css("top", "50%");
+                                }
+                                break;
+                        }
+                        break;
+                    case 'adminText':
+                        HudComponets["adminText"] = value;
+
+                        if (value == "block") {
+                            if (HudComponets["funk"] == true) {
+                                $("#voiceRangeOutBox").css("top", "45%");
+                                $("#funkOutBox").css("top", "50%");
+                                $("#adminBox").css("top", "55%");
+                            } else {
+                                $("#voiceRangeOutBox").css("top", "47.5%");
+                                $("#adminBox").css("top", "52.5%");
+                            }
+                        } else {
+                            if (HudComponets["funk"] == true) {
+                                $("#voiceRangeOutBox").css("top", "47.5%");
+                                $("#funkOutBox").css("top", "52.5%");
+                            } else {
+                                $("#voiceRangeOutBox").css("top", "50%");
+                            }
+                        }
+
+                        $("#adminBox").css("display", value);
+                        break;
+                }
+            }
+
+            function toggleVehicleHud(state) {
+                if (state) {
+                    $("#vehicleWindow").show();
+                } else {
+                    $("#vehicleWindow").hide();
+                }
+            }
+
+            function updateVehicleHud(engine, lock, kmh, rpm) {
+                rpm -= 0.2;
+                rpm = rpm * 125;
+
+                if (rpm < 1) {
+                    $("#bodyVH").css("line-height", "32.5px");
+                } else {
+                    $("#bodyVH").css("line-height", "36px");
+                }
+
+                $("#rpmVH").css("width", `${rpm}%`);
+
+                if (engine == true) {
+                    $("#engineVH").css("color", "rgb(53, 177, 37)");
+                } else {
+                    $("#engineVH").css("color", "#f03030");
+                }
+
+                if (lock == 1) {
+                    $("#lockVH").css("color", "rgb(53, 177, 37)");
+                } else {
+                    $("#lockVH").css("color", "#f03030");
+                }
+
+                $("#kmhVH").html(`${kmh} km/h`);
+            }
+        </script>
+    </div>
+
+    <div style="-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;display: none; width: 100%; height: 100%;"
+        id="circlemenuhtml">
+        <div class="interaktionmenu">
+            <div class="circle">
+            </div>
+            <div class="infos">
+                <span id="infosTitle">Schließen</span><br>
+                <span id="infosDesc">Schließt das Menu</span>
+            </div>
+        </div>
+        <script>
+            let activeItem = null;
+            let menuKey = null;
+
+            function openCircleMenu(menukey, menuItems) {
+                $(".circle").empty();
+                menuKey = menukey;
+                menuItems = JSON.parse(menuItems)
+                for (let key in menuItems) {
+                    let newItem = `
+            <div data-itemkey="${key}" data-title="${menuItems[key].title}" data-desc="${menuItems[key].desc}" class="item">
+                <img src="./img/circlemenu/${menuItems[key].image}.png">
+            </div>
+            `
+                    newItem = $.parseHTML(newItem);
+                    $(".circle").append(newItem);
+                }
+                updateElements();
+                $("#circlemenuhtml").show();
+            }
+
+            function closeCircleMenu() {
+                $("#circlemenuhtml").hide();
+                if (activeItem != null && menuKey != null) {
+                    mp.trigger('selectedItem_' + menuKey, $(activeItem).data("itemkey"))
+                }
+                $(".circle").empty();
+                menuKey = null;
+            }
+        </script>
+        <script>
+            let items = null;
+
+            function updateElements() {
+                items = document.querySelectorAll('.circle .item');
+
+                for (let i = 0, l = items.length; i < l; i++) {
+                    items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) +
+                        "%";
+
+                    items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) +
+                        "%";
+                }
+            }
+
+            function calculateDistance(elem, mouseX, mouseY) {
+                var zoomLevel = parseFloat($('body').css("zoom") || "1.0");
+                mouseX = mouseX / zoomLevel;
+                mouseY = mouseY / zoomLevel;
+                return Math.floor((Math.sqrt(Math.pow(mouseX - (elem.offset().left + (elem.width() / 2)), 2) + Math.pow(
+                    mouseY - (elem.offset().top + (elem.height() / 2)), 2))));
+            }
+
+            $("html").on("mousemove", (e) => {
+                if (items == null) return;
+                let mX = e.pageX;
+                let mY = e.pageY;
+                let lastDistance = null;
+                let lastItem = null;
+                let tmpItem = null;
+                for (let i = 0; i < items.length; i++) {
+                    let distance = calculateDistance($(items[i]), mX, mY);
+                    if (lastDistance != null) {
+                        if (lastDistance < distance) {
+                            tmpItem = lastItem;
+                        } else {
+                            tmpItem = items[i];
+                            lastItem = items[i];
+                            lastDistance = distance;
+                        }
+                    } else {
+                        tmpItem = items[i];
+                        lastItem = items[i];
+                        lastDistance = distance;
+                    }
+                }
+                if (lastItem != null) {
+                    $(".item").css({
+                        "opacity": "0.65",
+                        "border": ""
+                    });
+                    $("#infosTitle").html($(lastItem).data("title"));
+                    $("#infosDesc").html($(lastItem).data("desc"));
+                    $(lastItem).css({
+                        "opacity": "1.0",
+                        "border": "5px solid #4287f5"
+                    });
+                    activeItem = lastItem;
+                }
+            });
+        </script>
+    </div>
+
+    <script>
+        function triggerNotificaiton(chatstate, title, text, delay = 5000, topcolor = null, layout = "topLeft") {
+            // NotificationSound = new Audio('utils/beep.wav').play();
+            let customText = "";
+            let css = {};
+            let fuelstation = false;
+            css["background-color"] = "rgba(22, 22, 22, 0.8)";
+            css["border-top"] = "none";
+
+            if (topcolor == "error") {
+                topcolor = "#f03030";
+            } else if (topcolor == "warning") {
+                topcolor = "#f5901d";
+            } else if (topcolor == "succes") {
+                topcolor = "rgb(53, 177, 37)";
+            } else if (topcolor == null || topcolor == undefined || topcolor == "null") {
+                topcolor = "#4287f5";
+            }
+
+            css["border-left"] = `5px solid ${topcolor}`;
+
+            customText = `<b style="font-size: 12px; color: ${topcolor};">` + title + '</b><br>' + `<b>${text}</b>`;
+
+            if (title == "null" || title == null) {
+                customText = `<b>${text}</b>`;
+            }
+
+            let not = new Noty({
+                type: 'success',
+                theme: 'sunset',
+                layout: layout,
+                text: customText,
+                progressBar: false,
+                timeout: parseInt(delay),
+                animation: {
+                    open: 'animated fadeIn',
+                    close: 'animated fadeOut'
+                }
+            }).show();
+
+            if (not != null) {
+                let obj = not.get();
+                $(obj).css(css);
+            }
+
+            if (chatstate) {
+                $("#noty_layout__topLeft").css("top", "60px");
+            } else {
+                $("#noty_layout__topLeft").css("top", "10px");
+            }
+        }
+
+        function toggleChatInput(state) {
+            if (state) {
+                $("#chatInput").val("");
+                $("#chatInput").show();
+                $("#chatInput").focus();
+                $("#noty_layout__topLeft").css("top", "60px");
+            } else {
+                $("#chatInput").hide();
+                $("#noty_layout__topLeft").css("top", "10px");
+            }
+        }
+
+        function insertChatInput(value) {
+            $("#chatInput").val(value);
+        }
+
+        $("html").on("keyup", function (e) {
+            if (e.which == 13) {
+                mp.trigger("sendChatInput", $("#chatInput").val());
+                $("#chatInput").val("");
+            }
+        });
+    </script>
+</body>
+
+</html>

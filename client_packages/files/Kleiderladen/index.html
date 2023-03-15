@@ -1,0 +1,81 @@
+<!-- CREATED BY LifeState Roleplay  -->
+<html><head>
+    <meta charset="utf-8">
+    <link href="css/kleiderschrank.css" rel="stylesheet">
+</head>
+<body class="noselect">
+<div id="app">
+<div class="bg"></div>
+
+<div class="topline"></div>
+
+<div class="mainContent">
+
+
+
+
+<div class="pricebar" style="background: rgba(0, 0, 0, 0.7);width: 16vw;height: 5vw;position: absolute;left: 2vw;top: 40vw;">
+    <p style=" font-size: 2vw; margin-top: -3vw;">Warenkorb</p><span style=" color: white; margin-left: 0.35vw; margin-top: 4vw;position: absolute;">Preis: <span id="bilanz">0</span> $</span>
+</div>
+
+<div class="buybay" style="background: rgba(0, 0, 0, 0.7);width: 11vw;height: 5vw;position: absolute;left: 18vw;top: 40vw;">
+    <a id="next" onclick="buyClothes()" class="btn btn-4" style="margin-left: 2.5vw;padding: 0.5vw 2vw;position: inherit;width: 2vw;margin-top: 0.5vw;background: #00bd4f;border: 1px solid #00bd4f;">                 <span>Bezahlen</span></a>
+</div>
+
+<div id="catbar" class="catbar" style="background: rgba(0, 0, 0, 0.7);width: 27vw;height: 3vw;position: absolute;/* right: 4.5vw; */top: 5vw;">
+    <p id="catname" style="font-size: 2vw;margin-top: -2.35vw;">OBERTEIL</p>
+</div>
+
+<div class="head">
+    <p style="
+        font-size: 2vw;
+        margin-top: -3vw;
+    ">Kleidungsladen</p>
+    </div>
+
+<!-- <div class="stripe1"></div> -->
+
+<div class="container2">
+    <div id="masks" style="display: contents;">
+                    <img src="img/gasmaske.png" class="test" id="next" onclick="selectCat(1)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));">
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: rgb(221, 24, 24);font-size: 0.85vw;">Kostenlos<span id="choosenmasks" style="display:none; font-size: 0.95vw;"></span></span>            
+    </div>
+    <div id="tops" style="display: contents;">
+                    <img src="img/blouse.png" id="next" onclick="selectCat(2)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));"> 
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: white;font-size: 0.85vw;">Kostenlos<span id="choosentops" style="font-size: 0.95vw; display: none;"></span></span>            
+    </div>
+    <div id="undershirts" style="display: contents;">
+                    <img src="img/polo-shirt.png" id="next" onclick="selectCat(3)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));">  
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: white;font-size: 0.85vw;">Kostenlos<span id="choosenundershirts" style="display:none; font-size: 0.95vw;"></span></span>            
+    </div>
+    <div id="torsos" style="display: contents;">
+                    <img src="img/pair-of-gloves.png" id="next" onclick="selectCat(5)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));">  
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: white;font-size: 0.85vw;">Kostenlos<span id="choosentorsos" style="display:none; font-size: 0.95vw;"></span></span>            
+    </div><div id="legs" style="display: contents;">
+                    <img src="img/trousers.png" id="next" onclick="selectCat(6)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));"> 
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: white;font-size: 0.85vw;">Kostenlos<span id="choosenlegs" style="display:none; font-size: 0.95vw;"></span></span>            
+    </div>
+    <div id="shoes" style="display: contents;">
+                    <img src="img/men-shoe.png" id="next" onclick="selectCat(7)" style="background: linear-gradient(to right, #00ca43, rgba(22, 22, 22, 0.3));">  
+                    <span style="display:none; margin-top: -0.75vw;margin-bottom: 1vw;color: white;font-size: 0.85vw;">Kostenlos<span id="choosenshoes" style="display:none; font-size: 0.95vw;"></span></span>            
+    </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+    <section class="buttons">
+        <div id="sidebar2" class="container" style="display: inline-grid;max-height: 27.25vw;">
+        </div>
+    </section>
+</div>
+
+</div>
+
+
+
+<div class="subline4" onclick="mp.trigger('client:closeKleiderladen');">X</div>
+</div>
+
+<script src="js/app.js"></script>
+<script src="js/jquery.js"></script>
+</body></html>
+<!-- CREATED BY  Spyrex (Copyright) -->

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+        overflow: hidden;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+ 
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        background: transparent;
+      }
+ 
+      .notification {
+        animation: fadeIn 0.5s ease-in-out;
+        margin-bottom: 1vh;
+        position: relative;
+        top: 1vh;
+        left: 2vh;
+        background-color: rgb(25, 25, 25, 0.78);
+        max-width: 22vh;
+        min-height: 3vh;
+        word-wrap: break-word;
+        padding: 0.8vh;
+        border-radius: 2px;
+ 
+        -webkit-box-shadow: 11px 10px 58px -22px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 11px 10px 58px -22px rgba(0, 0, 0, 0.75);
+        box-shadow: 11px 10px 58px -22px rgba(0, 0, 0, 0.75);
+      }
+ 
+      .notification-title {
+        text-transform: uppercase;
+        padding: 5px 0 0 10px;
+        font-size: 1.1vh;
+        text-align: center;
+      }
+ 
+      .notification-message {
+        padding-left: 10px;
+        font-size: 1.3vh;
+      }
+ 
+      p {
+        color: #ffffff;
+      }
+ 
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+ 
+  <body>
+    <div id="notifications"></div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
